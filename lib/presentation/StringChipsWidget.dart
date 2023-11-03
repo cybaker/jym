@@ -12,7 +12,7 @@ class StringChipsWidget extends StatefulWidget {
 }
 
 class _StringChipsWidgetState extends State<StringChipsWidget> {
-  Set<String> _selectedList = {};
+  final Set<String> _selectedList = {};
 
   @override
   void initState() {

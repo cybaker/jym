@@ -86,7 +86,7 @@ class _MyWidgetState extends State<MyWidget> {
         const Text('Select from these muscle groups first:'),
         StringChipsWidget(
           strings: movementGroups.keys.toList(),
-          selectedStrings: const [],
+          selectedStrings: selectedMuscleGroups,
           onSelectionChanged: (List<String> selectedStrings) {
             setState(() {
               selectedMuscleGroups = selectedStrings;
@@ -102,21 +102,7 @@ class _MyWidgetState extends State<MyWidget> {
       itemCount: selectedMuscleGroups.length,
       itemBuilder: (context, index) {
         var group = selectedMuscleGroups[index];
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(group),
-            StringChipsWidget(
-              strings: movementGroups[group] ?? [],
-              selectedStrings: selectedMuscleGroupMovements[group] ?? [],
-              onSelectionChanged: (List<String> strings) {
-                setState(() {
-                  selectedMuscleGroupMovements[group] = strings;
-                });
-              },
-            ),
-          ],
-        );
+        return muscleGroupWidgets[group] ?? Container();
       },
     );
   }
@@ -127,7 +113,6 @@ class _MyWidgetState extends State<MyWidget> {
       var movements = selectedMuscleGroupMovements[group] ?? [];
       List<Exercise> userExercises = [];
       for (var movement in movements) {
-        debugPrint('movement: $movement');
         userExercises.add(Exercise(
           movement: movement,
           sets: 3,
@@ -163,8 +148,8 @@ class _MyWidgetState extends State<MyWidget> {
   @override
   void initState() {
     super.initState();
-    muscleGroupWidgets = getMuscleGroupWidgets();
     selectedMuscleGroupMovements.addAll(movementGroups);
+    muscleGroupWidgets = getMuscleGroupWidgets();
   }
 
   @override
