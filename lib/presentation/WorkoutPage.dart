@@ -16,25 +16,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
   late DateTime startTime = pageLoadTime;
   late DateTime endTime = pageLoadTime;
 
-// // Save user exercises to local storage
-//   void saveUserExercises() async {
-//     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//     prefs.setStringList('Workout', userExercises.map((exercise) => jsonEncode(exercise)).toList());
-//   }
-//
-// // Save user exercises to local storage
-//   void saveWorkout() async {
-//     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//     prefs.setString('Workout', jsonEncode(userWorkout));
-//   }
-//
-// // Load user exercises from local storage
-//   void loadWorkout() async {
-//     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//     String workout = prefs.getString('Workout') ?? "";
-//     userWorkout = jsonDecode(workout);
-//   }
-
   @override
   void initState() {
     super.initState();
@@ -45,7 +26,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   Widget startAndEndTimes() {
     if (startTime == pageLoadTime) {
-      return Text("Start any exercise.");
+      return const Text("Reorder then start any exercise.");
     }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
