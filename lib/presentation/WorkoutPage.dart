@@ -35,11 +35,12 @@ class _WorkoutPageState extends State<WorkoutPage> {
 //     userWorkout = jsonDecode(workout);
 //   }
 
-
   @override
   void initState() {
     super.initState();
-    // TODO
+    widget.exercises.forEach((key, value) => value.forEach((element) {
+      exercises.add(element);
+    }));
   }
 
   Widget startAndEndTimes() {
@@ -64,23 +65,31 @@ class _WorkoutPageState extends State<WorkoutPage> {
     setState(() {});
   }
 
-  Widget tilesForExercises() {
-    var exercises = [];
-    widget.exercises.forEach((key, value) => value.forEach((element) {exercises.add(element);}));
-    return ListView.builder(
-      itemCount: exercises.length,
-      itemBuilder: (context, index) {
-        return ExerciseTile(movement: "Name", muscleGroup: exercises[index].toString(), started: exerciseStarted);
-      },
-    );
-  }
+  var exercises = [];
 
+  Widget tilesForExercises() {
+    return ReorderableListView(
+        children: [
+          for (final items in exercises)
+            ExerciseTile(
+                key: ValueKey(items), movement: items, muscleGroup: items.toString(), started: exerciseStarted),
+        ],
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            if (newIndex > oldIndex) {
+              newIndex = newIndex - 1;
+            }
+            final item = exercises.removeAt(oldIndex);
+            exercises.insert(newIndex, item);
+          });
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Workout'),
+        title: const Text('Today\'s Workout'),
       ),
       body: Center(
         child: Padding(
@@ -91,8 +100,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
               Flexible(child: tilesForExercises()),
             ],
           ),
-          ),
         ),
-      );
+      ),
+    );
   }
 }

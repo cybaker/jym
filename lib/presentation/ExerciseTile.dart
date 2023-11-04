@@ -16,11 +16,7 @@ class ExerciseTile extends StatefulWidget {
 }
 
 class _ExerciseTileState extends State<ExerciseTile> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  int sets = 0;
 
   // Timer the user can set for starting and stopping a set
   Timer? timer;
@@ -45,6 +41,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
   }
 
   void stopSet() {
+    sets++;
     timer?.cancel();
     timer = null;
     secondsRemaining = 60;
@@ -68,8 +65,15 @@ class _ExerciseTileState extends State<ExerciseTile> {
 
     return ListTile(
       title: Text(widget.movement),
-      subtitle: Text(widget.muscleGroup),
-      trailing: Row(
+      subtitle: Text("  Sets completed: $sets"),
+      trailing: trailingWidget(icon, context),
+    );
+  }
+
+  Widget trailingWidget(IconData icon, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
