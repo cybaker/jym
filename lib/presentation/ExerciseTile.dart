@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 class ExerciseTile extends StatefulWidget {
   final String movement;
   final String muscleGroup;
+  final Function(bool) started;
 
-  const ExerciseTile({super.key, required this.movement, required this.muscleGroup});
+  const ExerciseTile({super.key, required this.movement, required this.muscleGroup, required this.started});
 
   @override
   _ExerciseTileState createState() => _ExerciseTileState();
@@ -33,13 +34,14 @@ class _ExerciseTileState extends State<ExerciseTile> {
       }
 
       secondsRemaining--;
-      if (!this.mounted) {
+      if (!mounted) {
         timer.cancel();
         return;
       }
       setState(() {});
     });
     setState(() {});
+    widget.started(true);
   }
 
   void stopSet() {
@@ -47,6 +49,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
     timer = null;
     secondsRemaining = 60;
     setState(() {});
+    widget.started(false);
   }
 
   void _onStartEnd() {
