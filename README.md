@@ -1,16 +1,30 @@
-# flutter_jym_old
+# Flutter jym
 
-A new Flutter project.
+[![Pub](https://img.shields.io/pub/v/flutter_jym.svg)](https://pub.dev/packages/flutter_jym)
+[![License](https://img.shields.io/github/license/cybaker/flutter_jym)](https://github.com/cybaker/flutter_jym/blob/master/LICENSE)
+[![Pub likes](https://badgen.net/pub/likes/flutter_jym)](https://pub.dev/packages/flutter_jym/score)
+[![Pub popularity](https://badgen.net/pub/popularity/flutter_jym)](https://pub.dev/packages/flutter_jym/score)
+[![Pub points](https://badgen.net/pub/points/flutter_jym)](https://pub.dev/packages/flutter_jym/score)
+[![Flutter platform](https://badgen.net/pub/flutter-platform/flutter_jym)](https://pub.dev/packages/flutter_jym)
 
-## Getting Started
+Jym is your workout planner to generate a workout and track your progress. Jym is a Flutter app for all platforms, a Progressive Web App. Jym is free and open source.
 
-This project is a starting point for a Flutter application.
+- [Jym](#Jym)
+- [UseCases](#UseCases)
 
-A few resources to get you started if this is your first Flutter project:
+[Run the example app in your web or mobile browser](https://cybaker.github.io/flutter_jym/)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Jym
+Jym is your workout planner. Plan today's workout, and track your progress.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# UseCases
+- Review your history of workouts
+- Select muscle groups to workout today
+- Save today's workout locally on your device
+
+# Definitions
+- Workout: A set of exercises to complete today
+- Exercise: Sets of the same movements to perform
+- Set: A number of repetitions with resting in between
+- Repetitions (Reps): A number of movements to do before resting
+- Movement: A single muscle movement like a curl or pushup
