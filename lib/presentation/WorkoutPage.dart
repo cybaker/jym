@@ -39,7 +39,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   void initState() {
     super.initState();
     widget.exercises.forEach((key, value) => value.forEach((element) {
-          exercises.add(element);
+          exercises.add('$element ($key)');
         }));
   }
 
@@ -72,7 +72,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
         children: [
           for (final items in exercises)
             ExerciseTile(
-                key: ValueKey(items), movement: items, muscleGroup: items.toString(), started: exerciseStarted),
+                key: ValueKey(items), movement: items, started: exerciseStarted),
         ],
         onReorder: (oldIndex, newIndex) {
           setState(() {

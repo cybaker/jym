@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 
 class ExerciseTile extends StatefulWidget {
   final String movement;
-  final String muscleGroup;
   final Function(bool) started;
 
-  const ExerciseTile({super.key, required this.movement, required this.muscleGroup, required this.started});
+  const ExerciseTile({super.key, required this.movement, required this.started});
 
   @override
   _ExerciseTileState createState() => _ExerciseTileState();
