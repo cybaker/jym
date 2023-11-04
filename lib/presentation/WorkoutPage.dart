@@ -39,8 +39,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
   void initState() {
     super.initState();
     widget.exercises.forEach((key, value) => value.forEach((element) {
-      exercises.add(element);
-    }));
+          exercises.add(element);
+        }));
   }
 
   Widget startAndEndTimes() {

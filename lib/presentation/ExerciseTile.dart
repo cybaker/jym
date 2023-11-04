@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -55,8 +53,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
     } else {
       startSet();
     }
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -82,8 +79,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
               _onStartEnd();
             },
           ),
-          if (timer?.isActive == true)
-            Text(secondsRemaining.toString(), style: Theme.of(context).textTheme.bodyMedium),
+          if (timer?.isActive == true) Text(secondsRemaining.toString(), style: Theme.of(context).textTheme.bodyMedium),
         ],
       ),
     );

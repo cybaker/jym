@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_jym/presentation/WorkoutPage.dart';
 
@@ -123,13 +121,10 @@ class _JymHomePageState extends State<JymHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(flex: 10, child: MuscleGroupsWidget()),
-
               const Spacer(
                 flex: 1,
               ),
-
               UserControls(),
-
               Flexible(flex: 40, child: ExercisesFromSelectedMuscleGroupsWidget()),
             ],
           ),
