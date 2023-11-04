@@ -96,6 +96,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              // TODO add interleave, randomize items
               startAndEndTimes(),
               Flexible(child: tilesForExercises()),
             ],

@@ -92,10 +92,6 @@ class _JymHomePageState extends State<JymHomePage> {
           },
           child: const Text('Start'),
         ),
-
-        // TODO add a randomizer to the workout?
-
-        // TODO edit groups and exercises?
       ],
     );
   }
