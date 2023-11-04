@@ -1,18 +1,14 @@
 # Flutter jym
 
-[![Pub](https://img.shields.io/pub/v/flutter_jym.svg)](https://pub.dev/packages/flutter_jym)
-[![License](https://img.shields.io/github/license/cybaker/flutter_jym)](https://github.com/cybaker/flutter_jym/blob/master/LICENSE)
-[![Pub likes](https://badgen.net/pub/likes/flutter_jym)](https://pub.dev/packages/flutter_jym/score)
-[![Pub popularity](https://badgen.net/pub/popularity/flutter_jym)](https://pub.dev/packages/flutter_jym/score)
-[![Pub points](https://badgen.net/pub/points/flutter_jym)](https://pub.dev/packages/flutter_jym/score)
-[![Flutter platform](https://badgen.net/pub/flutter-platform/flutter_jym)](https://pub.dev/packages/flutter_jym)
+[![Pub](https://img.shields.io/pub/v/jym.svg)](https://pub.dev/packages/jym)
+[![License](https://img.shields.io/github/license/cybaker/jym)](https://github.com/cybaker/jym/blob/master/LICENSE)
 
 Jym is your workout planner to generate a workout and track your progress. Jym is a Flutter app for all platforms, a Progressive Web App. Jym is free and open source.
 
 - [Jym](#Jym)
 - [UseCases](#UseCases)
 
-[Run the example app in your web or mobile browser](https://cybaker.github.io/flutter_jym/)
+[Run the example app in your web or mobile browser](https://cybaker.github.io/jym/)
 
 # Jym
 Jym is your workout planner. Plan today's workout, and track your progress.

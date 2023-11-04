@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_jym/presentation/ExerciseTile.dart';
+
+import 'ExerciseTile.dart';
 
 class WorkoutPage extends StatefulWidget {
   final Map<String, List<String>> exercises;
