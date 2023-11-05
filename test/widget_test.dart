@@ -12,6 +12,6 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('smoke test', (tester) async {
     // Build our game and trigger a frame.
-    await tester.pumpWidget(JymApp());
+    await tester.pumpWidget(const JymApp());
   });
 }

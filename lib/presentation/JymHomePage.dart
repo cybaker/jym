@@ -72,7 +72,6 @@ class _JymHomePageState extends State<JymHomePage> {
     Map<String, List<String>> selectedMuscleGroupExercises = {};
     for (var group in selectedMuscleGroups) {
       selectedMuscleGroupExercises[group] = selectedMuscleGroupMovements[group] ?? [];
-      print('${selectedMuscleGroupExercises}');
     }
     Navigator.of(context).push(
       MaterialPageRoute(
