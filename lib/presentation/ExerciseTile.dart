@@ -15,22 +15,16 @@ class ExerciseTile extends StatefulWidget {
 class _ExerciseTileState extends State<ExerciseTile> {
   int sets = 0;
 
-  // Timer the user can set for starting and stopping a set
+  // Timer for a set
   Timer? timer;
   int secondsRemaining = 60;
 
   void startSet() {
+    secondsRemaining = 60;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (secondsRemaining <= 0) {
-        timer.cancel();
-        return;
-      }
+      if (secondsRemaining <= 0 || !mounted) stopSet();
 
       secondsRemaining--;
-      if (!mounted) {
-        timer.cancel();
-        return;
-      }
       setState(() {});
     });
     setState(() {});
@@ -41,7 +35,6 @@ class _ExerciseTileState extends State<ExerciseTile> {
     sets++;
     timer?.cancel();
     timer = null;
-    secondsRemaining = 60;
     setState(() {});
     widget.started(false);
   }
@@ -72,13 +65,14 @@ class _ExerciseTileState extends State<ExerciseTile> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (timer?.isActive == true) Text(secondsRemaining.toString(), style: Theme.of(context).textTheme.bodyMedium),
+          Container(width: 8),
           IconButton(
             icon: Icon(icon),
             onPressed: () {
               _onStartEnd();
             },
           ),
-          if (timer?.isActive == true) Text(secondsRemaining.toString(), style: Theme.of(context).textTheme.bodyMedium),
         ],
       ),
     );
