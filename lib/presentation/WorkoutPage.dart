@@ -21,7 +21,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
   @override
   void initState() {
     super.initState();
-    super.initState();
     widget.exercises.forEach((key, value) => value.forEach((element) {
           exercises.add('$element ($key)');
         }));
