@@ -81,6 +81,8 @@ class _JymHomePageState extends State<JymHomePage> {
   }
 
   Widget UserControls() {
+    if (selectedMuscleGroups.isEmpty) return Container();
+
     return Row(
       children: [
         // Button to generate user workout
@@ -90,6 +92,13 @@ class _JymHomePageState extends State<JymHomePage> {
             // setState(() {});
           },
           child: const Text('Start'),
+        ),
+        Container(width: 8),
+        ElevatedButton(
+          onPressed: () {
+            // setState(() {});
+          },
+          child: const Text('Random'),
         ),
       ],
     );
@@ -115,12 +124,11 @@ class _JymHomePageState extends State<JymHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(flex: 10, child: MuscleGroupsWidget()),
-              const Spacer(
-                flex: 1,
-              ),
+              Flexible(flex: 1, child: MuscleGroupsWidget()),
+              Container(height: 8),
               UserControls(),
-              Flexible(flex: 40, child: ExercisesFromSelectedMuscleGroupsWidget()),
+              Container(height: 8),
+              Flexible(flex: 1, child: ExercisesFromSelectedMuscleGroupsWidget()),
             ],
           ),
         ),

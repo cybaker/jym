@@ -16,6 +16,7 @@ dependencies:
   json_annotation: ^4.8.1
   intl: ^0.18.1
   google_fonts: ^6.1.0
+  wakelock: ^0.6.2
 
 dev_dependencies:
   flutter_test:
