@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wakelock/wakelock.dart';
 
 import 'ExerciseTile.dart';
 
@@ -23,6 +24,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
     widget.exercises.forEach((key, value) => value.forEach((element) {
           exercises.add('$element ($key)');
         }));
+    Wakelock.enable();
+  }
+
+  @override
+  void dispose() {
+    Wakelock.disable();
+    super.dispose();
   }
 
   Widget startAndEndTimes() {

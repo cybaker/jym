@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'domain/ThemeData.dart';
 import 'presentation/JymHomePage.dart';
 
 void main() {
@@ -13,16 +14,12 @@ class JymApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       title: 'Jym',
-      theme: ThemeData(
-        useMaterial3: true,
-        textTheme: const TextTheme(),
-      ),
+      theme: appThemeData(Brightness.dark),
       routes: {
         '/': (context) => const JymHomePage(),
       },
     );
   }
 }
-
