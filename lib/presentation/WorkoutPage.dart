@@ -17,12 +17,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
   DateTime pageLoadTime = DateTime.now();
   late DateTime startTime = pageLoadTime;
   late DateTime endTime = pageLoadTime;
+  var exercises = [];
 
   @override
   void initState() {
     super.initState();
     widget.exercises.forEach((key, value) => value.forEach((element) {
-          exercises.add('$element ($key)');
+          exercises.add('$element');
         }));
     Wakelock.enable();
   }
@@ -33,14 +34,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
     super.dispose();
   }
 
-  Widget startAndEndTimes() {
+  Widget userControls() {
     if (startTime == pageLoadTime) {
-      return const Text("Reorder then start any exercise.");
+      return const Text("Drag to reorder. Start any exercise in any order.");
     }
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
       children: [
-        Text("Start Time: ${DateFormat('MMM-dd – kk:mm:ss').format(startTime)}"),
+        Text("Start Time: ${DateFormat('dd MMM – kk:mm:ss').format(startTime)}"),
         if (endTime != pageLoadTime) Text("End Time: ${DateFormat('kk:mm:ss').format(endTime)}"),
       ],
     );
@@ -54,8 +54,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
     }
     setState(() {});
   }
-
-  var exercises = [];
 
   Widget tilesForExercises() {
     return ReorderableListView(
@@ -75,6 +73,16 @@ class _WorkoutPageState extends State<WorkoutPage> {
         });
   }
 
+  Widget closeCTA() {
+    return ElevatedButton(
+      onPressed: () {
+        // TODO save results
+        Navigator.pop(context);
+      },
+      child: const Text('I did it!', style: TextStyle(fontSize: 30),),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,9 +94,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              // TODO add interleave, randomize items
-              startAndEndTimes(),
-              Flexible(child: tilesForExercises()),
+              // TODO add circuit, interleave,, shuffle items
+              userControls(),
+              Flexible(flex: 1, child: tilesForExercises()),
+              Container(height: 16),
+              closeCTA(),
             ],
           ),
         ),

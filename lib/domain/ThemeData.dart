@@ -41,9 +41,10 @@ ThemeData appThemeData(Brightness brightness) {
         fontSize: 20,
         fontWeight: FontWeight.normal,
       ),
-      displaySmall: GoogleFonts.roboto(
-        fontSize: 16,
+      bodySmall: GoogleFonts.roboto(
+        fontSize: 18,
         fontWeight: FontWeight.normal,
+        color: Colors.orange,
       ),
     ),
   );
