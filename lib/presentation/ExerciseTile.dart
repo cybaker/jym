@@ -53,22 +53,38 @@ class _ExerciseTileState extends State<ExerciseTile> {
     var icon = (timer?.isActive == true) ? Icons.stop_circle : Icons.play_arrow;
 
     return ListTile(
-      title: Text(widget.movement),
-      subtitle: Text("$sets done"),
-      trailing: trailingWidget(icon, context),
+      title: Text("${widget.movement}: "),
+      subtitle: noteControl(),
+      trailing: startStopControls(icon, context),
     );
   }
 
-  Widget trailingWidget(IconData icon, BuildContext context) {
+  Widget noteControl() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.2,
+      child: TextField(
+        style: Theme.of(context).textTheme.bodySmall,
+        decoration: InputDecoration.collapsed(hintText: 'notes'),
+      ),
+    );
+  }
+
+  Widget startStopControls(IconData icon, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 8.0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (timer?.isActive == true) Text(secondsRemaining.toString(), style: Theme.of(context).textTheme.bodyMedium),
+          if (timer?.isActive == true)
+            Text(secondsRemaining.toString(), style: Theme.of(context).textTheme.bodyMedium)
+          else
+            Text("$sets", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.orange)),
           Container(width: 8),
           IconButton(
-            icon: Icon(icon, size: 34,),
+            icon: Icon(
+              icon,
+              size: 34,
+            ),
             onPressed: () {
               _onStartEnd();
             },
