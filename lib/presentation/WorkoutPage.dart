@@ -23,7 +23,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   void initState() {
     super.initState();
     widget.exercises.forEach((key, value) => value.forEach((element) {
-          exercises.add('$element ($key)');
+          exercises.add('$element');
         }));
     Wakelock.enable();
   }
@@ -79,7 +79,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
         // TODO save results
         Navigator.pop(context);
       },
-      child: const Text('End Workout', style: TextStyle(fontSize: 38),),
+      child: const Text('I did it!', style: TextStyle(fontSize: 30),),
     );
   }
 
@@ -97,6 +97,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
               // TODO add circuit, interleave,, shuffle items
               userControls(),
               Flexible(flex: 1, child: tilesForExercises()),
+              Container(height: 16),
               closeCTA(),
             ],
           ),

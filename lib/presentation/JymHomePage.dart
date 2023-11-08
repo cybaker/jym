@@ -117,7 +117,7 @@ class _JymHomePageState extends State<JymHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Workout'),
+        title: const Text('Create a Workout'),
       ),
       body: Center(
         child: Padding(

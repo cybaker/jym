@@ -19,10 +19,10 @@ class _ExerciseTileState extends State<ExerciseTile> {
   Timer? timer;
   int secondsRemaining = 60;
 
-  void startSet() {
+  void _startSet() {
     secondsRemaining = 60;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (secondsRemaining <= 0 || !mounted) stopSet();
+      if (secondsRemaining <= 0 || !mounted) _stopSet();
 
       secondsRemaining--;
       setState(() {});
@@ -31,7 +31,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
     widget.started(true);
   }
 
-  void stopSet() {
+  void _stopSet() {
     sets++;
     timer?.cancel();
     timer = null;
@@ -41,9 +41,9 @@ class _ExerciseTileState extends State<ExerciseTile> {
 
   void _onStartEnd() {
     if (timer?.isActive == true) {
-      stopSet();
+      _stopSet();
     } else {
-      startSet();
+      _startSet();
     }
     setState(() {});
   }
@@ -54,7 +54,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
 
     return ListTile(
       title: Text(widget.movement),
-      subtitle: Text("  Sets completed: $sets"),
+      subtitle: Text("$sets done"),
       trailing: trailingWidget(icon, context),
     );
   }
