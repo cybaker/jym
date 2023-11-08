@@ -17,6 +17,10 @@ ThemeData appThemeData(Brightness brightness) {
       textTheme: ButtonTextTheme.primary,
     ),
 
+    chipTheme: const ChipThemeData(
+      labelStyle: TextStyle(color: Colors.orangeAccent, fontSize: 20),
+    ),
+
     // Define the default `TextTheme`. Use this to specify the default
     // text styling for headlines, titles, bodies of text, and more.
     textTheme: TextTheme(
@@ -25,12 +29,22 @@ ThemeData appThemeData(Brightness brightness) {
         fontWeight: FontWeight.bold,
       ),
       // ···
-      titleLarge: GoogleFonts.comfortaa(
+      titleLarge: GoogleFonts.roboto(
         fontSize: 30,
         fontWeight: FontWeight.normal,
       ),
-      bodyMedium: GoogleFonts.comfortaa(),
-      displaySmall: GoogleFonts.comfortaa(),
+      bodyLarge: GoogleFonts.roboto(
+        fontSize: 24,
+        fontWeight: FontWeight.normal,
+      ),
+      bodyMedium: GoogleFonts.roboto(
+        fontSize: 20,
+        fontWeight: FontWeight.normal,
+      ),
+      displaySmall: GoogleFonts.roboto(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
     ),
   );
 }

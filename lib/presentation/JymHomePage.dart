@@ -59,8 +59,9 @@ class _JymHomePageState extends State<JymHomePage> {
   }
 
   Widget ExercisesFromSelectedMuscleGroupsWidget() {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: selectedMuscleGroups.length,
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
       itemBuilder: (context, index) {
         var group = selectedMuscleGroups[index];
         return muscleGroupWidgets[group] ?? Container();
@@ -91,14 +92,14 @@ class _JymHomePageState extends State<JymHomePage> {
             startWorkout();
             // setState(() {});
           },
-          child: const Text('Start'),
+          child: const Text('Start', style: TextStyle(fontSize: 30),),
         ),
-        Container(width: 8),
+        Container(width: 16),
         ElevatedButton(
           onPressed: () {
             // setState(() {});
           },
-          child: const Text('Random'),
+          child: const Text('Random', style: TextStyle(fontSize: 30),),
         ),
       ],
     );
@@ -124,10 +125,10 @@ class _JymHomePageState extends State<JymHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(flex: 1, child: MuscleGroupsWidget()),
-              Container(height: 8),
+              MuscleGroupsWidget(),
+              Container(height: 16),
               UserControls(),
-              Container(height: 8),
+              Container(height: 16),
               Flexible(flex: 1, child: ExercisesFromSelectedMuscleGroupsWidget()),
             ],
           ),

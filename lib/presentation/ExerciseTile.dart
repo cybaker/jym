@@ -68,7 +68,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
           if (timer?.isActive == true) Text(secondsRemaining.toString(), style: Theme.of(context).textTheme.bodyMedium),
           Container(width: 8),
           IconButton(
-            icon: Icon(icon),
+            icon: Icon(icon, size: 34,),
             onPressed: () {
               _onStartEnd();
             },
