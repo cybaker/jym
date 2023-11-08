@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 class ExerciseTile extends StatefulWidget {
   final String movement;
   final Function(bool) started;
+  final Function(String, String)? notesAndSets;
 
-  const ExerciseTile({super.key, required this.movement, required this.started});
+  const ExerciseTile({super.key, required this.movement, required this.started, this.notesAndSets});
 
   @override
   _ExerciseTileState createState() => _ExerciseTileState();
@@ -14,6 +15,7 @@ class ExerciseTile extends StatefulWidget {
 
 class _ExerciseTileState extends State<ExerciseTile> {
   int sets = 0;
+  String notes = "";
 
   // Timer for a set
   Timer? timer;
@@ -33,6 +35,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
 
   void _stopSet() {
     sets++;
+    widget.notesAndSets?.call(notes, sets.toString());
     timer?.cancel();
     timer = null;
     setState(() {});
@@ -65,6 +68,10 @@ class _ExerciseTileState extends State<ExerciseTile> {
       child: TextField(
         style: Theme.of(context).textTheme.bodySmall,
         decoration: InputDecoration.collapsed(hintText: 'notes'),
+        onChanged: (value) {
+          widget.notesAndSets?.call(value, sets.toString());
+          setState(() { notes = value; });
+        },
       ),
     );
   }
