@@ -11,11 +11,13 @@ class Exercise {
   String movement;
   int sets;
   int repsPerSet;
+  String notes;
 
   Exercise({
     required this.movement,
     required this.sets,
     required this.repsPerSet,
+    required this.notes,
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) =>

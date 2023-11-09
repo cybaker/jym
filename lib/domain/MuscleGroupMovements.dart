@@ -29,5 +29,4 @@ class MuscleGroupMovements {
     'muscleGroup': instance.muscleGroup,
     'exercises': instance.exercises.map((e) => e.toJson()).toList(),
   };
-
 }

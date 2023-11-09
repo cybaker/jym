@@ -1,3 +1,4 @@
+import 'package:Jym/domain/Exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wakelock/wakelock.dart';
@@ -14,11 +15,11 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  DateTime _pageLoadTime = DateTime.now();
+  final DateTime _pageLoadTime = DateTime.now();
   late DateTime _startTime = _pageLoadTime;
   late DateTime _endTime = _pageLoadTime;
-  late final _exercises = [];
-  late List<Widget> _tiles = [];
+  late final List<Exercise> _exercises = [];
+  late List<ExerciseTile> _tiles = [];
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   void _buildExercises() {
     widget.exercises.forEach((key, value) => value.forEach((element) {
-          _exercises.add('$element');
+          _exercises.add(Exercise(movement: element, sets: 0, repsPerSet: 10, notes: ""));
         }));
   }
 
@@ -63,10 +64,21 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   void _buildTiles() {
     _tiles = [
-      for (final items in _exercises)
+      for (final exercise in _exercises)
         ExerciseTile(
-            key: ValueKey(items), movement: items, started: exerciseStarted),
+            key: ValueKey(exercise), movement: exercise.movement, started: exerciseStarted,
+            notesAndSets: (notes, sets) {
+              exercise.notes = notes;
+              exercise.sets = int.parse(sets);
+            }),
     ];
+  }
+
+  void _saveTiles() async {
+    debugPrint('$_startTime to $_endTime');
+    for (var exercise in _exercises) {
+      debugPrint(exercise.toJson().toString());
+    }
   }
 
   Widget tilesForExercises() {
@@ -86,7 +98,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   Widget closeCTA() {
     return ElevatedButton(
       onPressed: () {
-        // TODO save results
+        _saveTiles();
         Navigator.pop(context);
       },
       child: const Text('I did it!', style: TextStyle(fontSize: 30),),
