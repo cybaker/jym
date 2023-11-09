@@ -14,18 +14,24 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  DateTime pageLoadTime = DateTime.now();
-  late DateTime startTime = pageLoadTime;
-  late DateTime endTime = pageLoadTime;
-  var exercises = [];
+  DateTime _pageLoadTime = DateTime.now();
+  late DateTime _startTime = _pageLoadTime;
+  late DateTime _endTime = _pageLoadTime;
+  late final _exercises = [];
+  late List<Widget> _tiles = [];
 
   @override
   void initState() {
     super.initState();
-    widget.exercises.forEach((key, value) => value.forEach((element) {
-          exercises.add('$element');
-        }));
+    _buildExercises();
+    _buildTiles();
     Wakelock.enable();
+  }
+
+  void _buildExercises() {
+    widget.exercises.forEach((key, value) => value.forEach((element) {
+          _exercises.add('$element');
+        }));
   }
 
   @override
@@ -35,40 +41,44 @@ class _WorkoutPageState extends State<WorkoutPage> {
   }
 
   Widget userControls() {
-    if (startTime == pageLoadTime) {
+    if (_startTime == _pageLoadTime) {
       return const Text("Drag to reorder. Start any exercise in any order.");
     }
     return Column(
       children: [
-        Text("Start Time: ${DateFormat('dd MMM – kk:mm:ss').format(startTime)}"),
-        if (endTime != pageLoadTime) Text("End Time: ${DateFormat('kk:mm:ss').format(endTime)}"),
+        Text("Start Time: ${DateFormat('dd MMM – kk:mm:ss').format(_startTime)}"),
+        if (_endTime != _pageLoadTime) Text("End Time: ${DateFormat('kk:mm:ss').format(_endTime)}"),
       ],
     );
   }
 
   void exerciseStarted(bool started) {
-    if (started && startTime == pageLoadTime) {
-      startTime = DateTime.now();
+    if (started && _startTime == _pageLoadTime) {
+      _startTime = DateTime.now();
     } else {
-      endTime = DateTime.now();
+      _endTime = DateTime.now();
     }
     setState(() {});
   }
 
+  void _buildTiles() {
+    _tiles = [
+      for (final items in _exercises)
+        ExerciseTile(
+            key: ValueKey(items), movement: items, started: exerciseStarted),
+    ];
+  }
+
   Widget tilesForExercises() {
     return ReorderableListView(
-        children: [
-          for (final items in exercises)
-            ExerciseTile(
-                key: ValueKey(items), movement: items, started: exerciseStarted),
-        ],
+        children: _tiles,
         onReorder: (oldIndex, newIndex) {
           setState(() {
             if (newIndex > oldIndex) {
               newIndex = newIndex - 1;
             }
-            final item = exercises.removeAt(oldIndex);
-            exercises.insert(newIndex, item);
+            final item = _exercises.removeAt(oldIndex);
+            _exercises.insert(newIndex, item);
           });
         });
   }
