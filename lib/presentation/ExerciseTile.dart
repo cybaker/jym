@@ -34,12 +34,8 @@ class _ExerciseTileState extends State<ExerciseTile> {
   }
 
   void _stopSet() {
-    sets++;
-    widget.notesAndSets?.call(notes, sets.toString());
-    timer?.cancel();
-    timer = null;
+    _updateTimer();
     setState(() {});
-    widget.started(false);
   }
 
   void _onStartEnd() {
@@ -49,6 +45,20 @@ class _ExerciseTileState extends State<ExerciseTile> {
       _startSet();
     }
     setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _updateTimer();
+    super.dispose();
+  }
+
+  void _updateTimer() {
+    sets++;
+    timer?.cancel();
+    timer = null;
+    widget.started(false);
+    widget.notesAndSets?.call(notes, sets.toString());
   }
 
   @override
@@ -70,7 +80,9 @@ class _ExerciseTileState extends State<ExerciseTile> {
         decoration: InputDecoration.collapsed(hintText: 'notes'),
         onChanged: (value) {
           widget.notesAndSets?.call(value, sets.toString());
-          setState(() { notes = value; });
+          setState(() {
+            notes = value;
+          });
         },
       ),
     );

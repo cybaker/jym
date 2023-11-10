@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../domain/Workout.dart';
 import 'ExerciseTile.dart';
 
 class WorkoutPage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   final DateTime _pageLoadTime = DateTime.now();
   late DateTime _startTime = _pageLoadTime;
   late DateTime _endTime = _pageLoadTime;
-  late final List<Exercise> _exercises = [];
+  late List<Exercise> _exercises = [];
   late List<ExerciseTile> _tiles = [];
 
   @override
@@ -31,7 +32,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   void _buildExercises() {
     widget.exercises.forEach((key, value) => value.forEach((element) {
-          _exercises.add(Exercise(movement: element, sets: 0, repsPerSet: 10, notes: ""));
+          _exercises.add(Exercise(muscleGroup: key, movement: element, sets: 0, repsPerSet: 10, notes: ""));
         }));
   }
 
@@ -74,11 +75,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
     ];
   }
 
-  void _saveTiles() async {
-    debugPrint('$_startTime to $_endTime');
-    for (var exercise in _exercises) {
-      debugPrint(exercise.toJson().toString());
-    }
+  void _saveWorkout() async {
+    var workout = Workout(startTime: _startTime.toIso8601String(), endTime: _endTime.toIso8601String(), exercises: _exercises);
+    debugPrint(workout.toJson(workout).toString());
   }
 
   Widget tilesForExercises() {
@@ -98,7 +97,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
   Widget closeCTA() {
     return ElevatedButton(
       onPressed: () {
-        _saveTiles();
+        _saveWorkout();
+        _exercises = [];
         Navigator.pop(context);
       },
       child: const Text('I did it!', style: TextStyle(fontSize: 30),),
