@@ -28,11 +28,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (secondsRemaining <= 0 || !mounted) _stopSet();
       secondsRemaining--;
-      if (secondsRemaining % 6 == 0) {
-        Player.playStart();
-      } else {
-        Player.playClick();
-      }
+      (secondsRemaining % 6 == 0) ? Player.playStart() : Player.playClick();
       setState(() {});
     });
     Player.playStart();
@@ -46,11 +42,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
   }
 
   void _onStartEnd() {
-    if (timer?.isActive == true) {
-      _stopSet();
-    } else {
-      _startSet();
-    }
+    timer?.isActive == true ? _stopSet() : _startSet();
     setState(() {});
   }
 
@@ -84,7 +76,7 @@ class _ExerciseTileState extends State<ExerciseTile> {
       width: MediaQuery.of(context).size.width * 0.2,
       child: TextField(
         style: Theme.of(context).textTheme.bodySmall,
-        decoration: InputDecoration.collapsed(hintText: 'notes'),
+        decoration: const InputDecoration.collapsed(hintText: 'notes'),
         onChanged: (value) {
           widget.notesAndSets?.call(value, sets.toString());
           setState(() {
