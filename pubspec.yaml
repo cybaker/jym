@@ -17,6 +17,7 @@ dependencies:
   intl: ^0.18.1
   google_fonts: ^6.1.0
   wakelock: ^0.6.2
+  audioplayers: ^5.2.0
 
 dev_dependencies:
   flutter_test:
@@ -27,3 +28,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/sounds/
+
+flutter_icons:
+  android: false
+  ios: false
+  image_path: "assets/weight.png"
+  adaptive_icon_background: "#FFFFFF"
