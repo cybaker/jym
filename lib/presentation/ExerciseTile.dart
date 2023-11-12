@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../data/AudioPlayer.dart';
+
 class ExerciseTile extends StatefulWidget {
   final String movement;
   final Function(bool) started;
@@ -25,21 +27,22 @@ class _ExerciseTileState extends State<ExerciseTile> {
     secondsRemaining = 60;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (secondsRemaining <= 0 || !mounted) _stopSet();
-
       secondsRemaining--;
+      if (secondsRemaining % 6 == 0) {
+        Player.playStart();
+      } else {
+        Player.playClick();
+      }
       setState(() {});
     });
+    Player.playStart();
     setState(() {});
     widget.started(true);
   }
 
   void _stopSet() {
-    sets++;
-    widget.notesAndSets?.call(notes, sets.toString());
-    timer?.cancel();
-    timer = null;
+    _updateTimer();
     setState(() {});
-    widget.started(false);
   }
 
   void _onStartEnd() {
@@ -49,6 +52,20 @@ class _ExerciseTileState extends State<ExerciseTile> {
       _startSet();
     }
     setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _updateTimer();
+    super.dispose();
+  }
+
+  void _updateTimer() {
+    sets++;
+    timer?.cancel();
+    timer = null;
+    widget.started(false);
+    widget.notesAndSets?.call(notes, sets.toString());
   }
 
   @override
@@ -70,7 +87,9 @@ class _ExerciseTileState extends State<ExerciseTile> {
         decoration: InputDecoration.collapsed(hintText: 'notes'),
         onChanged: (value) {
           widget.notesAndSets?.call(value, sets.toString());
-          setState(() { notes = value; });
+          setState(() {
+            notes = value;
+          });
         },
       ),
     );

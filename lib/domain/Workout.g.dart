@@ -1,23 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'MuscleGroupMovements.dart';
+part of 'Workout.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MuscleGroupMovements _$MuscleGroupMovementsFromJson(
-        Map<String, dynamic> json) =>
-    MuscleGroupMovements(
-      muscleGroup: json['muscleGroup'] as String,
+Workout _$WorkoutFromJson(Map<String, dynamic> json) => Workout(
+      startTime: json['startTime'] as String,
+      endTime: json['endTime'] as String,
       exercises: (json['exercises'] as List<dynamic>)
           .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$MuscleGroupMovementsToJson(
-        MuscleGroupMovements instance) =>
-    <String, dynamic>{
-      'muscleGroup': instance.muscleGroup,
+Map<String, dynamic> _$WorkoutToJson(Workout instance) => <String, dynamic>{
+      'startTime': instance.startTime,
+      'endTime': instance.endTime,
       'exercises': instance.exercises.map((e) => e.toJson()).toList(),
     };

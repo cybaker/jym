@@ -8,17 +8,21 @@ part 'Exercise.g.dart';
 // An exercise is sets of the same movements to perform
 @JsonSerializable(explicitToJson: true)
 class Exercise {
+  String muscleGroup;
   String movement;
   int sets;
   int repsPerSet;
+  String notes;
 
   Exercise({
+    required this.muscleGroup,
     required this.movement,
     required this.sets,
     required this.repsPerSet,
+    required this.notes,
   });
 
-  factory Exercise.fromJson(Map<String, dynamic> json) =>
-      _$ExerciseFromJson(json);
+  factory Exercise.fromJson(Map<String, dynamic> json) => _$ExerciseFromJson(json);
+
   Map<String, dynamic> toJson() => _$ExerciseToJson(this);
 }

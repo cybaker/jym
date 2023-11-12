@@ -1,7 +1,9 @@
+import 'package:Jym/domain/Exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../domain/Workout.dart';
 import 'ExerciseTile.dart';
 
 class WorkoutPage extends StatefulWidget {
@@ -14,18 +16,24 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  DateTime pageLoadTime = DateTime.now();
-  late DateTime startTime = pageLoadTime;
-  late DateTime endTime = pageLoadTime;
-  var exercises = [];
+  final DateTime _pageLoadTime = DateTime.now();
+  late DateTime _startTime = _pageLoadTime;
+  late DateTime _endTime = _pageLoadTime;
+  late List<Exercise> _exercises = [];
+  late List<ExerciseTile> _tiles = [];
 
   @override
   void initState() {
     super.initState();
-    widget.exercises.forEach((key, value) => value.forEach((element) {
-          exercises.add('$element');
-        }));
+    _buildExercises();
+    _buildTiles();
     Wakelock.enable();
+  }
+
+  void _buildExercises() {
+    widget.exercises.forEach((key, value) => value.forEach((element) {
+          _exercises.add(Exercise(muscleGroup: key, movement: element, sets: 0, repsPerSet: 10, notes: ""));
+        }));
   }
 
   @override
@@ -35,40 +43,53 @@ class _WorkoutPageState extends State<WorkoutPage> {
   }
 
   Widget userControls() {
-    if (startTime == pageLoadTime) {
+    if (_startTime == _pageLoadTime) {
       return const Text("Drag to reorder. Start any exercise in any order.");
     }
     return Column(
       children: [
-        Text("Start Time: ${DateFormat('dd MMM – kk:mm:ss').format(startTime)}"),
-        if (endTime != pageLoadTime) Text("End Time: ${DateFormat('kk:mm:ss').format(endTime)}"),
+        Text("Start Time: ${DateFormat('dd MMM – kk:mm:ss').format(_startTime)}"),
+        if (_endTime != _pageLoadTime) Text("End Time: ${DateFormat('kk:mm:ss').format(_endTime)}"),
       ],
     );
   }
 
   void exerciseStarted(bool started) {
-    if (started && startTime == pageLoadTime) {
-      startTime = DateTime.now();
+    if (started && _startTime == _pageLoadTime) {
+      _startTime = DateTime.now();
     } else {
-      endTime = DateTime.now();
+      _endTime = DateTime.now();
     }
     setState(() {});
   }
 
+  void _buildTiles() {
+    _tiles = [
+      for (final exercise in _exercises)
+        ExerciseTile(
+            key: ValueKey(exercise), movement: exercise.movement, started: exerciseStarted,
+            notesAndSets: (notes, sets) {
+              exercise.notes = notes;
+              exercise.sets = int.parse(sets);
+            }),
+    ];
+  }
+
+  void _saveWorkout() async {
+    var workout = Workout(startTime: _startTime.toIso8601String(), endTime: _endTime.toIso8601String(), exercises: _exercises);
+    debugPrint(workout.toJson(workout).toString());
+  }
+
   Widget tilesForExercises() {
     return ReorderableListView(
-        children: [
-          for (final items in exercises)
-            ExerciseTile(
-                key: ValueKey(items), movement: items, started: exerciseStarted),
-        ],
+        children: _tiles,
         onReorder: (oldIndex, newIndex) {
           setState(() {
             if (newIndex > oldIndex) {
               newIndex = newIndex - 1;
             }
-            final item = exercises.removeAt(oldIndex);
-            exercises.insert(newIndex, item);
+            final item = _exercises.removeAt(oldIndex);
+            _exercises.insert(newIndex, item);
           });
         });
   }
@@ -76,7 +97,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
   Widget closeCTA() {
     return ElevatedButton(
       onPressed: () {
-        // TODO save results
+        _saveWorkout();
+        _exercises = [];
         Navigator.pop(context);
       },
       child: const Text('I did it!', style: TextStyle(fontSize: 30),),
