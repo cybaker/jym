@@ -6,11 +6,13 @@ class Player {
   static final _startSource = AssetSource('sounds/start.mp3');
 
   static playClick() async {
+    await AudioPlayer().stop();
     await AudioPlayer().play(_clickSource, mode: PlayerMode.lowLatency);
     debugPrint("Playing click sound");
   }
 
   static playStart() async {
+    await AudioPlayer().stop();
     await AudioPlayer().play(_startSource, mode: PlayerMode.lowLatency);
     debugPrint("Playing start sound");
   }
