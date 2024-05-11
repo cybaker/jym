@@ -62,10 +62,15 @@ class _ExerciseTileState extends State<ExerciseTile> {
   Widget build(BuildContext context) {
     var icon = (timer?.isActive == true) ? Icons.stop_circle : Icons.play_arrow;
 
-    return ListTile(
-      title: Text("${widget.movement}: "),
-      subtitle: noteControl(),
-      trailing: startStopControls(icon, context),
+    return Column(
+      children: [
+        ListTile(
+          title: Text(widget.movement),
+          subtitle: noteControl(),
+          trailing: startStopControls(icon, context),
+        ),
+        const Divider(thickness: 1,)
+      ],
     );
   }
 
@@ -94,12 +99,12 @@ class _ExerciseTileState extends State<ExerciseTile> {
           if (timer?.isActive == true)
             Text(secondsRemaining.toString(), style: Theme.of(context).textTheme.bodyMedium)
           else
-            Text("$sets", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.orange)),
+            Text("Sets: $sets", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.orange)),
           Container(width: 8),
           IconButton(
             icon: Icon(
               icon,
-              size: 34,
+              size: 48,
             ),
             onPressed: () {
               _onStartEnd();
