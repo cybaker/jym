@@ -11,10 +11,10 @@ class ExerciseTile extends StatefulWidget {
   const ExerciseTile({super.key, required this.movement, required this.started, this.notesAndSets});
 
   @override
-  _ExerciseTileState createState() => _ExerciseTileState();
+  ExerciseTileState createState() => ExerciseTileState();
 }
 
-class _ExerciseTileState extends State<ExerciseTile> {
+class ExerciseTileState extends State<ExerciseTile> {
   int sets = 0;
   String notes = "";
 
