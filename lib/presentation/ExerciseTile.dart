@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import '../data/AudioPlayer.dart';
+import '../data/Player.dart';
 
 class ExerciseTile extends StatefulWidget {
   final String movement;
@@ -27,10 +27,10 @@ class ExerciseTileState extends State<ExerciseTile> {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (secondsRemaining <= 0 || !mounted) _stopSet();
       secondsRemaining--;
-      (secondsRemaining % 6 == 0) ? AudioPlayer.playStart() : AudioPlayer.playClick();
+      (secondsRemaining % 6 == 0) ? Player.playStart() : Player.playClick();
       setState(() {});
     });
-    AudioPlayer.playStart();
+    Player.playStart();
     setState(() {});
     widget.started(true);
   }
