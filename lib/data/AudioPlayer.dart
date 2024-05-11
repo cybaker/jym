@@ -1,37 +1,19 @@
-import 'package:flutter/services.dart';
-import 'package:soundpool/soundpool.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-class AudioPlayer {
-  static const _clickSource = 'sounds/click.mp3';
-  static const _startSource = 'sounds/start.mp3';
-
-  static int clickSound = 0;
-  static int startSound = 0;
-
-  static final Soundpool _pool = Soundpool.fromOptions(options: const SoundpoolOptions());
+class Player {
+  static final _clickSource = AssetSource('sounds/click.mp3');
+  static final _startSource = AssetSource('sounds/start.mp3');
 
   static playClick() async {
-    await _initPool();
-    _pool.play(clickSound);
+    await AudioPlayer().stop();
+    await AudioPlayer().play(_clickSource, mode: PlayerMode.lowLatency, ctx: AudioContext(android: const AudioContextAndroid(stayAwake: true)));
     debugPrint("Playing click sound");
   }
 
-  static void playStart() async {
-    await _initPool();
-    _pool.play(startSound);
+  static playStart() async {
+    await AudioPlayer().stop();
+    await AudioPlayer().play(_startSource, mode: PlayerMode.lowLatency, ctx: AudioContext(android: const AudioContextAndroid(stayAwake: true)));
     debugPrint("Playing start sound");
-  }
-
-  static _initPool() async {
-    if (clickSound == 0) {
-      clickSound = await _loadSound(_clickSource);
-      startSound = await _loadSound(_startSource);
-    }
-  }
-
-  static Future<int> _loadSound(String soundFile) async {
-    var asset = await rootBundle.load(soundFile);
-    return await _pool.load(asset);
   }
 }
