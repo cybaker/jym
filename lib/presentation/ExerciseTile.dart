@@ -27,10 +27,10 @@ class _ExerciseTileState extends State<ExerciseTile> {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (secondsRemaining <= 0 || !mounted) _stopSet();
       secondsRemaining--;
-      (secondsRemaining % 6 == 0) ? Player.playStart() : Player.playClick();
+      (secondsRemaining % 6 == 0) ? AudioPlayer.playStart() : AudioPlayer.playClick();
       setState(() {});
     });
-    Player.playStart();
+    AudioPlayer.playStart();
     setState(() {});
     widget.started(true);
   }
