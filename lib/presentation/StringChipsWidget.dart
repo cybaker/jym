@@ -40,6 +40,7 @@ class StringChipsWidgetState extends State<StringChipsWidget> {
 
     return Wrap(
       spacing: 8.0,
+      runSpacing: 8.0,
       children: List<Widget>.generate(
         widget.strings.length,
         (int index) {

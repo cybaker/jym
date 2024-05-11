@@ -92,6 +92,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
             }
             final item = _exercises.removeAt(oldIndex);
             _exercises.insert(newIndex, item);
+            _buildTiles();
           });
         });
   }
