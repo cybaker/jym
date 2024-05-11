@@ -8,18 +8,11 @@ class StringChipsWidget extends StatefulWidget {
   const StringChipsWidget({super.key, required this.strings, required this.selectedStrings, required this.onSelectionChanged});
 
   @override
-  _StringChipsWidgetState createState() => _StringChipsWidgetState();
+  StringChipsWidgetState createState() => StringChipsWidgetState();
 }
 
-class _StringChipsWidgetState extends State<StringChipsWidget> {
+class StringChipsWidgetState extends State<StringChipsWidget> {
   final Set<String> _selectedList = {};
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedList.clear();
-    _selectedList.addAll(widget.selectedStrings);
-  }
 
   void _onChipSelected(String name, bool selected) {
     setState(() {
@@ -34,6 +27,8 @@ class _StringChipsWidgetState extends State<StringChipsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _selectedList.clear();
+    _selectedList.addAll(widget.selectedStrings);
     return Wrap(
       spacing: 8.0,
       children: List<Widget>.generate(
