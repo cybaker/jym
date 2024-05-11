@@ -69,6 +69,7 @@ class JymHomePageState extends State<JymHomePage> {
               selectedMuscleGroups = selectedStrings;
             });
           },
+          fontSize: 20,
         ),
       ],
     );
@@ -107,7 +108,6 @@ class JymHomePageState extends State<JymHomePage> {
         ElevatedButton(
           onPressed: () {
             startWorkout();
-            // setState(() {});
           },
           child: const Text('Start my workout', style: TextStyle(fontSize: 30),),
         ),
@@ -137,6 +137,7 @@ class JymHomePageState extends State<JymHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               muscleGroupsWidget(),
+              const Divider(height: 30, thickness: 4,),
               Container(height: 16),
               Flexible(flex: 1, child: exercisesFromSelectedMuscleGroupsWidget()),
               Container(height: 16),
