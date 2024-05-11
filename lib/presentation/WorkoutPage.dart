@@ -67,7 +67,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
     _tiles = [
       for (final exercise in _exercises)
         ExerciseTile(
-            key: ValueKey(exercise), movement: exercise.movement, started: exerciseStarted,
+            key: ValueKey(exercise),
+            movement: exercise.movement,
+            started: exerciseStarted,
             notesAndSets: (notes, sets) {
               exercise.notes = notes;
               exercise.sets = int.parse(sets);
@@ -90,6 +92,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
             }
             final item = _exercises.removeAt(oldIndex);
             _exercises.insert(newIndex, item);
+            _buildTiles();
           });
         });
   }

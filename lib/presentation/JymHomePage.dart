@@ -8,10 +8,10 @@ class JymHomePage extends StatefulWidget {
   const JymHomePage({super.key});
 
   @override
-  _JymHomePageState createState() => _JymHomePageState();
+  JymHomePageState createState() => JymHomePageState();
 }
 
-class _JymHomePageState extends State<JymHomePage> {
+class JymHomePageState extends State<JymHomePage> {
   List<String> selectedMuscleGroups = [];
 
   Map<String, List<String>> selectedMuscleGroupMovements = {};
@@ -24,7 +24,23 @@ class _JymHomePageState extends State<JymHomePage> {
       widgets[group] = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(group),
+          Row(
+            children: [
+              Text(group),
+              const SizedBox(width: 40),
+              ElevatedButton(
+                onPressed: () {
+                  var stringList = movementGroups[group];
+                  stringList!.shuffle();
+                  var pickList = stringList.sublist(0, 4);
+                  setState(() {
+                    selectedMuscleGroupMovements[group] = pickList;
+                  });
+                },
+                child: const Text('Pick 4', style: TextStyle(fontSize: 16, color: Colors.white70),),
+              ),
+            ]
+          ),
           StringChipsWidget(
             strings: movementGroups[group] ?? [],
             selectedStrings: selectedMuscleGroupMovements[group] ?? [],
@@ -40,7 +56,7 @@ class _JymHomePageState extends State<JymHomePage> {
     return widgets;
   }
 
-  Widget MuscleGroupsWidget() {
+  Widget muscleGroupsWidget() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -53,12 +69,13 @@ class _JymHomePageState extends State<JymHomePage> {
               selectedMuscleGroups = selectedStrings;
             });
           },
+          fontSize: 20,
         ),
       ],
     );
   }
 
-  Widget ExercisesFromSelectedMuscleGroupsWidget() {
+  Widget exercisesFromSelectedMuscleGroupsWidget() {
     return ListView.separated(
       itemCount: selectedMuscleGroups.length,
       separatorBuilder: (BuildContext context, int index) => const Divider(),
@@ -81,7 +98,7 @@ class _JymHomePageState extends State<JymHomePage> {
     );
   }
 
-  Widget UserControls() {
+  Widget userControls() {
     if (selectedMuscleGroups.isEmpty) return Container();
 
     return Row(
@@ -91,17 +108,9 @@ class _JymHomePageState extends State<JymHomePage> {
         ElevatedButton(
           onPressed: () {
             startWorkout();
-            // setState(() {});
           },
           child: const Text('Start my workout', style: TextStyle(fontSize: 30),),
         ),
-        // Container(width: 16),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     // setState(() {});
-        //   },
-        //   child: const Text('Random', style: TextStyle(fontSize: 30),),
-        // ),
       ],
     );
   }
@@ -110,11 +119,12 @@ class _JymHomePageState extends State<JymHomePage> {
   void initState() {
     super.initState();
     selectedMuscleGroupMovements.addAll(movementGroups);
-    muscleGroupWidgets = getMuscleGroupWidgets();
   }
 
   @override
   Widget build(BuildContext context) {
+    muscleGroupWidgets = getMuscleGroupWidgets();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create a Workout'),
@@ -126,11 +136,12 @@ class _JymHomePageState extends State<JymHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MuscleGroupsWidget(),
+              muscleGroupsWidget(),
+              const Divider(height: 30, thickness: 4,),
               Container(height: 16),
-              Flexible(flex: 1, child: ExercisesFromSelectedMuscleGroupsWidget()),
+              Flexible(flex: 1, child: exercisesFromSelectedMuscleGroupsWidget()),
               Container(height: 16),
-              UserControls(),
+              userControls(),
             ],
           ),
         ),

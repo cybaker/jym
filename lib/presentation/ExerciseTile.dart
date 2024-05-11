@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import '../data/AudioPlayer.dart';
 
 class ExerciseTile extends StatefulWidget {
@@ -43,7 +42,6 @@ class _ExerciseTileState extends State<ExerciseTile> {
 
   void _onStartEnd() {
     timer?.isActive == true ? _stopSet() : _startSet();
-    setState(() {});
   }
 
   @override
